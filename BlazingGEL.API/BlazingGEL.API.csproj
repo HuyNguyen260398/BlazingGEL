@@ -14,4 +14,8 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BlazingGEL.CoreBusiness\BlazingGEL.CoreBusiness.csproj" />
+  </ItemGroup>
+
 </Project>

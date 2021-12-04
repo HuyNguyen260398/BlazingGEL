@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BlazingGEL.API\BlazingGEL.API.csproj" />
+    <ProjectReference Include="..\BlazingGEL.CoreBusiness\BlazingGEL.CoreBusiness.csproj" />
+  </ItemGroup>
+
 </Project>
