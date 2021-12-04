@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BlazingGEL.Services\BlazingGEL.Services.csproj" />
+    <ProjectReference Include="..\BlazingGEL.CoreBusiness\BlazingGEL.CoreBusiness.csproj" />
   </ItemGroup>
 
 </Project>

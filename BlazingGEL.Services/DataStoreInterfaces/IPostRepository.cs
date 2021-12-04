@@ -1,6 +1,6 @@
 ﻿using BlazingGEL.CoreBusiness.Models;
 
-namespace BlazingGEL.API.DataStoreInterfaces;
+namespace BlazingGEL.API.Services;
 
 public interface IPostRepository
 {

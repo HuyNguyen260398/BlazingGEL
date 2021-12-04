@@ -8,13 +8,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazingGEL.API", "BlazingGEL.API\BlazingGEL.API.csproj", "{F95E74A0-9702-46DD-976B-F29FBEC92519}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazingGEL.API", "BlazingGEL.API\BlazingGEL.API.csproj", "{F95E74A0-9702-46DD-976B-F29FBEC92519}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazingGEL.CoreBusiness", "BlazingGEL.CoreBusiness\BlazingGEL.CoreBusiness.csproj", "{C4BEA7B3-A026-44C3-A9A4-D033CA01037A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazingGEL.CoreBusiness", "BlazingGEL.CoreBusiness\BlazingGEL.CoreBusiness.csproj", "{C4BEA7B3-A026-44C3-A9A4-D033CA01037A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazingGEL.DataStore.InMemory", "BlazingGEL.DataStore.InMemory\BlazingGEL.DataStore.InMemory.csproj", "{803E142E-D9B0-4240-907C-8BC75AC9BA09}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazingGEL.DataStore.InMemory", "BlazingGEL.DataStore.InMemory\BlazingGEL.DataStore.InMemory.csproj", "{803E142E-D9B0-4240-907C-8BC75AC9BA09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazingGEL.WASM", "BlazingGEL.WASM\BlazingGEL.WASM.csproj", "{F9EED62D-7396-4533-8470-B5ECCEE5C69B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazingGEL.WASM", "BlazingGEL.WASM\BlazingGEL.WASM.csproj", "{F9EED62D-7396-4533-8470-B5ECCEE5C69B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazingGEL.Services", "BlazingGEL.Services\BlazingGEL.Services.csproj", "{53B83675-03EE-4506-B584-F0913D122AD9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +40,10 @@ Global
 		{F9EED62D-7396-4533-8470-B5ECCEE5C69B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9EED62D-7396-4533-8470-B5ECCEE5C69B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9EED62D-7396-4533-8470-B5ECCEE5C69B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53B83675-03EE-4506-B584-F0913D122AD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53B83675-03EE-4506-B584-F0913D122AD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53B83675-03EE-4506-B584-F0913D122AD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53B83675-03EE-4506-B584-F0913D122AD9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

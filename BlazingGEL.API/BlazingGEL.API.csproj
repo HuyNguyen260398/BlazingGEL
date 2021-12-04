@@ -7,15 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\BlazingGEL.CoreBusiness\BlazingGEL.CoreBusiness.csproj" />
+    <ProjectReference Include="..\BlazingGEL.DataStore.InMemory\BlazingGEL.DataStore.InMemory.csproj" />
+    <ProjectReference Include="..\BlazingGEL.Services\BlazingGEL.Services.csproj" />
   </ItemGroup>
 
 </Project>

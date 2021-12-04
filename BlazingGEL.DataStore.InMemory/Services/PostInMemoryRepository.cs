@@ -1,4 +1,4 @@
-﻿using BlazingGEL.API.DataStoreInterfaces;
+﻿using BlazingGEL.API.Services;
 using BlazingGEL.CoreBusiness.Models;
 
 namespace BlazingGEL.DataStore.InMemory.Services;
