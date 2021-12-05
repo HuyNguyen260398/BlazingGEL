@@ -1,7 +1,7 @@
 using AutoMapper;
 using BlazingGEL.API.Profiles;
-using BlazingGEL.API.Services;
 using BlazingGEL.DataStore.InMemory.Services;
+using BlazingGEL.Services.DataStoreInterfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using BlazingGEL.API.Dtos;
-using BlazingGEL.API.Services;
 using BlazingGEL.CoreBusiness.Models;
+using BlazingGEL.Services.DataStoreInterfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlazingGEL.API.Controllers;
@@ -30,7 +30,7 @@ public class PostController : ControllerBase
                 return BadRequest(ModelState);
 
             var post = _mapper.Map<Post>(postDto);
-            var isSuccess = await _postRepo.CreatePost(post);
+            var isSuccess = await _postRepo.CreateAsync(post);
 
             if (!isSuccess)
                 return StatusCode(500, "Internal Server Error.");
@@ -48,7 +48,7 @@ public class PostController : ControllerBase
     {
         try
         {
-            var posts = await _postRepo.GetAllPosts();
+            var posts = await _postRepo.GetAllAsync();
             var postsDto = _mapper.Map<IEnumerable<PostDto>>(posts);
             return Ok(postsDto);
         }
@@ -63,7 +63,7 @@ public class PostController : ControllerBase
     {
         try
         {
-            var post = await _postRepo.GetPostById(id);
+            var post = await _postRepo.GetByIdAsync(id);
 
             if (post == null) 
                 return NotFound();
@@ -89,7 +89,7 @@ public class PostController : ControllerBase
                 return BadRequest(ModelState);
 
             var post = _mapper.Map<Post>(postDto);
-            var isSuccess = await _postRepo.UpdatePost(post);
+            var isSuccess = await _postRepo.UpdateAsync(post);
 
             if (!isSuccess)
                 return StatusCode(500, "Internal Server Error.");
@@ -110,7 +110,7 @@ public class PostController : ControllerBase
             if (id < 1)
                 return BadRequest();
 
-            var isSuccess = await _postRepo.DeletePost(id);
+            var isSuccess = await _postRepo.DeleteAsync(id);
 
             if (!isSuccess)
                 return StatusCode(500, "Internal Server Error.");

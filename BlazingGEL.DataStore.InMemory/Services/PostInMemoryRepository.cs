@@ -1,5 +1,5 @@
-﻿using BlazingGEL.API.Services;
-using BlazingGEL.CoreBusiness.Models;
+﻿using BlazingGEL.CoreBusiness.Models;
+using BlazingGEL.Services.DataStoreInterfaces;
 
 namespace BlazingGEL.DataStore.InMemory.Services;
 
@@ -57,7 +57,12 @@ public class PostInMemoryRepository : IPostRepository
         }
     };
 
-    public async Task<bool> CreatePost(Post post)
+    public async Task<bool> IsExistsAsync(int id)
+    {
+        return await Task.FromResult(_posts.Any(p => p.PostId == id));
+    }
+
+    public async Task<bool> CreateAsync(Post post)
     {
         if (_posts.Any(p => p.Title.Equals(post.Title, StringComparison.OrdinalIgnoreCase)))
             return await Task.FromResult(false);
@@ -71,17 +76,17 @@ public class PostInMemoryRepository : IPostRepository
         return await Task.FromResult(true);
     }
 
-    public async Task<IEnumerable<Post>> GetAllPosts()
+    public async Task<IEnumerable<Post>> GetAllAsync()
     {
         return await Task.FromResult(_posts);
     }
 
-    public async Task<Post> GetPostById(int id)
+    public async Task<Post> GetByIdAsync(int id)
     {
-        return await Task.FromResult(_posts.FirstOrDefault(p => p.PostId == id));
+        return await Task.FromResult(_posts.Find(p => p.PostId == id));
     }
 
-    public async Task<bool> UpdatePost(Post post)
+    public async Task<bool> UpdateAsync(Post post)
     {
         var index = _posts.FindIndex(p => p.PostId == post.PostId);
 
@@ -92,7 +97,7 @@ public class PostInMemoryRepository : IPostRepository
         return await Task.FromResult(true);
     }
 
-    public async Task<bool> DeletePost(int id)
+    public async Task<bool> DeleteAsync(int id)
     {
         var index = _posts.FindIndex(p => p.PostId == id);
 
@@ -101,5 +106,10 @@ public class PostInMemoryRepository : IPostRepository
 
         _posts.RemoveAt(index);
         return await Task.FromResult(true);
+    }
+
+    public async Task<bool> SaveAsync()
+    {
+        return true;
     }
 }
