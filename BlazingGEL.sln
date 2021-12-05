@@ -16,7 +16,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazingGEL.DataStore.InMemo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazingGEL.WASM", "BlazingGEL.WASM\BlazingGEL.WASM.csproj", "{F9EED62D-7396-4533-8470-B5ECCEE5C69B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazingGEL.Services", "BlazingGEL.Services\BlazingGEL.Services.csproj", "{53B83675-03EE-4506-B584-F0913D122AD9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazingGEL.Services", "BlazingGEL.Services\BlazingGEL.Services.csproj", "{53B83675-03EE-4506-B584-F0913D122AD9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

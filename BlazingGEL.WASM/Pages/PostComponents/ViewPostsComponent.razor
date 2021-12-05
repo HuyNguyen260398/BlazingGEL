@@ -1,0 +1,54 @@
+﻿@page "/posts"
+
+@inject IPostRepository PostRepo
+
+<h3>Posts</h3>
+
+@if (posts == null || posts.Count() == 0)
+{
+    <span>Loading posts...</span>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Created At</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var post in posts)
+            {
+                <tr>
+                    <td>@post.Title</td>
+                    <td>@post.Description</td>
+                    <td>@post.CategoryId</td>
+                    <td>@post.CreatedAt</td>
+                    <td>
+                        <button class="btn btn-info">Details</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-info">Edit</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-info">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IEnumerable<PostDto>? posts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        posts = await PostRepo.GetAllAsync(EndPoint.PostEnpoint);
+    }
+}

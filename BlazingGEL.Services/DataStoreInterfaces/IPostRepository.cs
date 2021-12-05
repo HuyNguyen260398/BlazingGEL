@@ -2,6 +2,6 @@
 
 namespace BlazingGEL.Services.DataStoreInterfaces;
 
-public interface IPostRepository : IRepositoryBase<Post>
+public interface IPostRepository : IBaseRepository<Post>
 {
 }

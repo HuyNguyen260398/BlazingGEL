@@ -57,6 +57,16 @@ public class PostInMemoryRepository : IPostRepository
         }
     };
 
+    public async Task<IEnumerable<Post>> GetAllAsync()
+    {
+        return await Task.FromResult(_posts);
+    }
+
+    public async Task<Post> GetByIdAsync(int id)
+    {
+        return await Task.FromResult(_posts.Find(p => p.PostId == id));
+    }
+
     public async Task<bool> IsExistsAsync(int id)
     {
         return await Task.FromResult(_posts.Any(p => p.PostId == id));
@@ -74,16 +84,6 @@ public class PostInMemoryRepository : IPostRepository
 
         _posts.Add(post);
         return await Task.FromResult(true);
-    }
-
-    public async Task<IEnumerable<Post>> GetAllAsync()
-    {
-        return await Task.FromResult(_posts);
-    }
-
-    public async Task<Post> GetByIdAsync(int id)
-    {
-        return await Task.FromResult(_posts.Find(p => p.PostId == id));
     }
 
     public async Task<bool> UpdateAsync(Post post)
