@@ -5,8 +5,8 @@ namespace BlazingGEL.API.Services;
 public interface IPostRepository
 {
     Task<bool> CreatePost(Post post);
-    Task<IEnumerable<Post>> GetPosts();
-    Task<Post> GetPost(int id);
+    Task<IEnumerable<Post>> GetAllPosts();
+    Task<Post> GetPostById(int id);
     Task<bool> UpdatePost(Post post);
     Task<bool> DeletePost(int id);
 }

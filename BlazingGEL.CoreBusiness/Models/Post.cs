@@ -4,13 +4,10 @@ namespace BlazingGEL.CoreBusiness.Models;
 
 public class Post
 {
-    [Key]
     public int PostId { get; set; }
 
-    [Required]
     public string? Title { get; set; }
 
-    [Required]
     public string? Description { get; set; }
 
     public int CategoryId { get; set; }
@@ -21,7 +18,6 @@ public class Post
 
     public string? Thumbnail { get; set; }
 
-    [Required]
     public string? Content { get; set; }
 
     public DateTime CreatedAt { get; set; }
