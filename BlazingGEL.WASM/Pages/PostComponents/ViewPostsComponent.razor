@@ -1,6 +1,7 @@
 ﻿@page "/posts"
 
 @inject IPostRepository PostRepo
+@inject NavigationManager NavManager
 
 <h3>Posts</h3>
 
@@ -30,7 +31,7 @@ else
                     <td>@post.CategoryId</td>
                     <td>@post.CreatedAt</td>
                     <td>
-                        <button class="btn btn-info">Details</button>
+                        <button class="btn btn-info" @onclick="(() => ViewPost(post.PostId))">Details</button>
                     </td>
                     <td>
                         <button class="btn btn-info">Edit</button>
@@ -50,5 +51,10 @@ else
     protected override async Task OnInitializedAsync()
     {
         posts = await PostRepo.GetAllAsync(EndPoint.PostEnpoint);
+    }
+
+    private void ViewPost(int id)
+    {
+        NavManager.NavigateTo($"posts/{id}");
     }
 }

@@ -1,0 +1,27 @@
+﻿@page "/posts/{postId}"
+
+@inject IPostRepository PostRepo
+
+<h3>Post Details</h3>
+
+<h1>@post.Title</h1>
+
+<h3>@post.Description</h3>
+
+<h5>@post.CreatedAt</h5>
+
+<p>
+    @post.Content
+</p>
+
+@code {
+    [Parameter]
+    public string postId { get; set; }
+
+    private PostDto post = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        post = await PostRepo.GetByIdAsync(EndPoint.PostEnpoint, Convert.ToInt32(postId));
+    }
+}
