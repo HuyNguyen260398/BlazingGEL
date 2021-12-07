@@ -1,11 +1,16 @@
-﻿namespace BlazingGEL.WASM.Dtos;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BlazingGEL.WASM.Dtos;
 
 public class PostDto
 {
+    [Required]
     public int PostId { get; set; }
 
+    [Required]
     public string? Title { get; set; }
 
+    [Required]
     public string? Description { get; set; }
 
     public int CategoryId { get; set; }
@@ -16,6 +21,7 @@ public class PostDto
 
     public string? Thumbnail { get; set; }
 
+    [Required]
     public string? Content { get; set; }
 
     public DateTime CreatedAt { get; set; }
