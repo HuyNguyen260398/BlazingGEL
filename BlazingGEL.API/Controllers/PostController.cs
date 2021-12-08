@@ -11,11 +11,13 @@ public class PostController : ControllerBase
 {
     private readonly IPostRepository _postRepo;
     private readonly IMapper _mapper;
+    private readonly IWebHostEnvironment _environment;
 
-    public PostController(IPostRepository postRepo, IMapper mapper)
+    public PostController(IPostRepository postRepo, IMapper mapper, IWebHostEnvironment environment)
     {
         _postRepo = postRepo;
         _mapper = mapper;
+        _environment = environment;
     }
 
     [HttpPost]
@@ -121,5 +123,25 @@ public class PostController : ControllerBase
         {
             return StatusCode(500, e.Message);
         }
+    }
+
+    [HttpPost("[action]")]
+    public async Task<string> Save()
+    {
+        string path = string.Empty;
+        if (HttpContext.Request.Form.Files.Any())
+        {
+            foreach (var file in HttpContext.Request.Form.Files)
+            {
+                path = Path.Combine(_environment.ContentRootPath, "uploads", file.FileName);
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+            }
+        }
+        byte[] ByteArray = System.IO.File.ReadAllBytes(path);
+
+        return Convert.ToBase64String(ByteArray);
     }
 }

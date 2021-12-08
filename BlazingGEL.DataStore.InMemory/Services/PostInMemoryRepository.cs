@@ -110,6 +110,6 @@ public class PostInMemoryRepository : IPostRepository
 
     public async Task<bool> SaveAsync()
     {
-        return true;
+        return await Task.FromResult(true);
     }
 }
