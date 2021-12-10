@@ -26,8 +26,8 @@
                             </td>
                         </tr>
                     </table>
-                    <span class="e-icons e-file-remove-btn remove" id="removeIcon" title="Remove"></span>
-                    <span class="e-upload-icon e-icons e-file-remove-btn" title="Upload" id="iconUpload" @onclick="@uploadFile"></span>
+                    <span><button class="btn btn-success" @onclick="uploadFile">Upload</button></span>
+                    <span><button class="btn btn-error">Remove</button></span>
                 </Template>
             </UploaderTemplates>
         </SfUploader>
@@ -48,7 +48,6 @@
     <label for="title">Title</label>
     <input type="text" @bind="postDto.Title" class="form-control" id="title" />
 </div>
-
 <br/>
 <button @onclick="SavePost" class="btn btn-info">Save</button>
 
@@ -117,7 +116,6 @@
             formContent = new MultipartFormDataContent {
                     { new ByteArrayContent(file.Stream.GetBuffer()), "\"upload\"", file.FileInfo.Name }
                 };
-
         }
     }
 
