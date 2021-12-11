@@ -1,10 +1,6 @@
 using BlazingGEL.WASM;
 using BlazingGEL.WASM.ServiceInterfaces;
 using BlazingGEL.WASM.Services;
-using Blazorise;
-using Blazorise.Bootstrap;
-using Blazorise.Icons.FontAwesome;
-using Blazorise.RichTextEdit;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Syncfusion.Blazor;
@@ -21,15 +17,6 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 
 // Midleware
 builder.Services.AddSyncfusionBlazor();
-
-builder.Services
-      .AddBlazorise(options =>
-      {
-          options.ChangeTextOnKeyPress = true;
-      })
-      .AddBootstrapProviders()
-      .AddFontAwesomeIcons();
-builder.Services.AddBlazoriseRichTextEdit();
 
 // DI Repository Services
 builder.Services.AddScoped<IPostRepository, PostRepository>();
