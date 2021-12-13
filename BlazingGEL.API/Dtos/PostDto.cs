@@ -28,6 +28,8 @@ public class PostDto
 
     public DateTime PublishedAt { get; set; }
 
+    public bool IsPublished { get; set; }
+
     public DateTime UpdatedAt { get; set; }
 
     public int Views { get; set; }
