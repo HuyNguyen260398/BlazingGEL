@@ -45,6 +45,8 @@
     </div>
     <br/>
     <button type="submit" class="btn btn-info">Save</button>
+    <br/>
+    <button class="btn btn-secondary" @onclick="OnReturn">Back</button>
 </EditForm>
 
 
@@ -146,5 +148,10 @@
 
         if (response)
             NavManager.NavigateTo("/posts");
+    }
+
+    private void OnReturn()
+    {
+        NavManager.NavigateTo("/posts");
     }
 }

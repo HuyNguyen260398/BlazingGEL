@@ -1,6 +1,7 @@
 ﻿@page "/posts/detail/{postId}"
 
 @inject IPostRepository PostRepo
+@inject NavigationManager NavManager
 
 <h3>Post Details</h3>
 
@@ -20,6 +21,8 @@
     @((MarkupString)post.Content)
 </p>
 
+<button class="btn btn-secondary" @onclick="OnReturn">Back</button>
+
 @code {
     [Parameter]
     public string postId { get; set; }
@@ -29,5 +32,10 @@
     protected override async Task OnInitializedAsync()
     {
         post = await PostRepo.GetByIdAsync(EndPoint.PostEnpoint, Convert.ToInt32(postId));
+    }
+
+    private void OnReturn()
+    {
+        NavManager.NavigateTo("/posts");
     }
 }
