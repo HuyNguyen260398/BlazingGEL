@@ -1,52 +1,62 @@
-﻿@page "/posts/create"
+﻿@page "/posts/edit/{Id}"
 
 @inject IPostRepository PostRepository
 @inject NavigationManager NavManager
 
-<EditForm Model="postDto" OnValidSubmit="OnSave" class="form-inline">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
-    <div class="form-group">
-        <label for="title">Title</label>
-        <InputText type="text" @bind-Value="postDto.Title" class="form-control" id="title" />
-    </div>
-    <div class="form-group">
-        <label for="desc">Description</label>
-        <InputTextArea type="text" @bind-Value="postDto.Description" class="form-control" id="desc" />
-    </div>
-    <div class="form-group">
-        <label for="category">Category</label>
-        <InputNumber type="number" @bind-Value="postDto.CategoryId" class="form-control" id="category" />
-    </div>
-    <div class="form-group">
-        <label for="sub-category">Sub Category</label>
-        <InputNumber type="number" @bind-Value="postDto.SubCategoryId" class="form-control" id="sub-category" />
-    </div>
-    <br/>
-    <div class="form-group">
-        <SfUploader AutoUpload="false">
-            <UploaderEvents ValueChange="OnChange" OnRemove="OnRemove" OnClear="OnClear"/>
-        </SfUploader>
-        <img src="@postDto.Thumbnail" />
+@if (int.Parse(Id) < 1 || string.IsNullOrWhiteSpace(Id))
+{
+    <h3>Id Error</h3>
+} 
+else if (postDto == null)
+{
+    <h3>Loading</h3>
+}
+else
+{
+    <EditForm Model="postDto" OnValidSubmit="OnSave" class="form-inline">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="form-group">
+            <label for="title">Title</label>
+            <InputText type="text" @bind-Value="postDto.Title" class="form-control" id="title" />
+        </div>
+        <div class="form-group">
+            <label for="desc">Description</label>
+            <InputTextArea type="text" @bind-Value="postDto.Description" class="form-control" id="desc" />
+        </div>
+        <div class="form-group">
+            <label for="category">Category</label>
+            <InputNumber type="number" @bind-Value="postDto.CategoryId" class="form-control" id="category" />
+        </div>
+        <div class="form-group">
+            <label for="sub-category">Sub Category</label>
+            <InputNumber type="number" @bind-Value="postDto.SubCategoryId" class="form-control" id="sub-category" />
+        </div>
         <br/>
-    </div>
-    <div class="control-section">
-        <div class="control-wrapper">
-            <div class="">
-                <SfRichTextEditor ShowCharCount="true" MaxLength="2000" AutoSaveOnIdle="true" @bind-Value="postDto.Content">
-                    <RichTextEditorToolbarSettings Items="@Tools" />
-                </SfRichTextEditor>
+        <div class="form-group">
+            <SfUploader AutoUpload="false">
+                <UploaderEvents ValueChange="OnChange" OnRemove="OnRemove" OnClear="OnClear"/>
+            </SfUploader>
+            <img src="@postDto.Thumbnail" />
+            <br/>
+        </div>
+        <div class="control-section">
+            <div class="control-wrapper">
+                <div class="">
+                    <SfRichTextEditor ShowCharCount="true" MaxLength="2000" AutoSaveOnIdle="true" @bind-Value="postDto.Content">
+                        <RichTextEditorToolbarSettings Items="@Tools" />
+                    </SfRichTextEditor>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="form-group">
-        <InputCheckbox id="publish" @bind-Value="postDto.IsPublished" class="form-check-input" />
-        <label for="publish">Publish</label>
-    </div>
-    <br/>
-    <button type="submit" class="btn btn-info">Save</button>
-</EditForm>
-
+        <div class="form-group">
+            <InputCheckbox id="publish" @bind-Value="postDto.IsPublished" class="form-check-input" />
+            <label for="publish">Publish</label>
+        </div>
+        <br/>
+        <button type="submit" class="btn btn-info">Save</button>
+    </EditForm>
+}
 
 @code {
     private List<ToolbarItemModel> Tools = new List<ToolbarItemModel>()
@@ -84,8 +94,15 @@
         new ToolbarItemModel() { Command = ToolbarCommand.Redo }
     };
 
+    [Parameter]
+    public string Id { get; set; }
     private string content { get; set; }
     private PostDto postDto = new();
+
+    protected async override Task OnInitializedAsync()
+    {
+        postDto = await PostRepository.GetByIdAsync(EndPoint.PostEnpoint, int.Parse(Id));
+    }
 
     private void OnRemove(RemovingEventArgs args)
     {
@@ -96,7 +113,6 @@
                 File.Delete(Path.Combine(@"rootPath", removeFile.Name));
             }
         }
-        postDto.Thumbnail = string.Empty;
         StateHasChanged();
     }
 
@@ -109,7 +125,6 @@
                 File.Delete(Path.Combine(@"rootPath", removeFile.Name));
             }
         }
-        postDto.Thumbnail = string.Empty;
         StateHasChanged();
     }
 
@@ -142,7 +157,7 @@
         postDto.Views = 0;
         postDto.Comments = 0;
 
-        var response = await PostRepository.CreateAsync(EndPoint.PostEnpoint, postDto);
+        var response = await PostRepository.UpdateAsync(EndPoint.PostEnpoint, postDto);
 
         if (response)
             NavManager.NavigateTo("/posts");
