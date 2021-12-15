@@ -12,6 +12,7 @@ public class MappingConfig
         {
             // Sources -> Targets
             config.CreateMap<PostDto, Post>().ReverseMap();
+            config.CreateMap<CategoryDto, Category>().ReverseMap();
         });
 
         return mappingCongif;

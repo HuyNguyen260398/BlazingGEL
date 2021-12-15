@@ -23,6 +23,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // DI Repositories
 builder.Services.AddScoped<IPostRepository, PostInMemoryRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryInMemoryRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

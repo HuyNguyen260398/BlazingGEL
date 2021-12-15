@@ -86,7 +86,7 @@ public class PostInMemoryRepository : IPostRepository
             post.PostId = 1;
 
         _posts.Add(post);
-        return await Task.FromResult(true);
+        return await SaveAsync();
     }
 
     public async Task<bool> UpdateAsync(Post post)
@@ -97,7 +97,7 @@ public class PostInMemoryRepository : IPostRepository
             return await Task.FromResult(false);
 
         _posts[index] = post;
-        return await Task.FromResult(true);
+        return await SaveAsync();
     }
 
     public async Task<bool> DeleteAsync(int id)
@@ -108,7 +108,7 @@ public class PostInMemoryRepository : IPostRepository
             return await Task.FromResult(false);
 
         _posts.RemoveAt(index);
-        return await Task.FromResult(true);
+        return await SaveAsync();
     }
 
     public async Task<bool> SaveAsync()

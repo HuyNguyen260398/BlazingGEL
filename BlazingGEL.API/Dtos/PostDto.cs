@@ -4,7 +4,7 @@ namespace BlazingGEL.API.Dtos;
 
 public class PostDto
 {
-    [Required]
+    [Key]
     public int PostId { get; set; }
 
     [Required]

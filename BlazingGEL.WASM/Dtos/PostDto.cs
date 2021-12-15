@@ -4,7 +4,7 @@ namespace BlazingGEL.WASM.Dtos;
 
 public class PostDto
 {
-    [Required]
+    [Key]
     public int PostId { get; set; }
 
     [Required]

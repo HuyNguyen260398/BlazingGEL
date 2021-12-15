@@ -20,31 +20,6 @@ public class PostController : ControllerBase
         _environment = environment;
     }
 
-    [HttpPost]
-    public async Task<IActionResult> CreatePost([FromBody] PostDto postDto)
-    {
-        try
-        {
-            if (postDto == null) 
-                return BadRequest(ModelState);
-
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var post = _mapper.Map<Post>(postDto);
-            var isSuccess = await _postRepo.CreateAsync(post);
-
-            if (!isSuccess)
-                return StatusCode(500, "Internal Server Error.");
-
-            return Created("CreatePost", new { post });
-        }
-        catch (Exception e)
-        {
-            return StatusCode(500, e.Message);
-        }
-    }
-
     [HttpGet]
     public async Task<IActionResult> GetPosts()
     {
@@ -72,6 +47,31 @@ public class PostController : ControllerBase
 
             var postDto = _mapper.Map<PostDto>(post);
             return Ok(postDto);
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, e.Message);
+        }
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CreatePost([FromBody] PostDto postDto)
+    {
+        try
+        {
+            if (postDto == null)
+                return BadRequest(ModelState);
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var post = _mapper.Map<Post>(postDto);
+            var isSuccess = await _postRepo.CreateAsync(post);
+
+            if (!isSuccess)
+                return StatusCode(500, "Internal Server Error.");
+
+            return Created("CreatePost", new { post });
         }
         catch (Exception e)
         {
