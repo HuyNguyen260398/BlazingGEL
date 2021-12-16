@@ -1,0 +1,77 @@
+﻿@page "/categories"
+
+@inject IPostRepository PostRepo
+@inject NavigationManager NavManager
+
+<h3>Posts</h3>
+
+<button class="btn btn-primary" @onclick="CreatePost">Create</button>
+
+@if (posts == null || posts.Count() == 0)
+{
+    <span>Loading posts...</span>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Created At</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var post in posts)
+            {
+                <tr>
+                    <td>@post.Title</td>
+                    <td>@post.Description</td>
+                    <td>@post.CategoryId</td>
+                    <td>@post.CreatedAt</td>
+                    <td>
+                        <button class="btn btn-info" @onclick="(() => ViewPost(post.PostId))">Details</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-warning" @onclick="(() => EditPost(post.PostId))">Edit</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" @onclick="(() => DeletePost(post.PostId))">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IEnumerable<PostDto>? posts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        posts = await PostRepo.GetAllAsync(EndPoint.PostEnpoint);
+    }
+
+    private void CreatePost()
+    {
+        NavManager.NavigateTo($"posts/create");
+    }
+
+    private void ViewPost(int id)
+    {
+        NavManager.NavigateTo($"posts/detail/{id}");
+    }
+
+    private void EditPost(int id)
+    {
+        NavManager.NavigateTo($"posts/edit/{id}");
+    }
+
+    private void DeletePost(int id)
+    {
+        NavManager.NavigateTo($"posts/delete/{id}");
+    }
+}
