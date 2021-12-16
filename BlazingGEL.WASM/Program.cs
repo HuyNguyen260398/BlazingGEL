@@ -20,5 +20,6 @@ builder.Services.AddSyncfusionBlazor();
 
 // DI Repository Services
 builder.Services.AddScoped<IPostRepository, PostRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
 await builder.Build().RunAsync();

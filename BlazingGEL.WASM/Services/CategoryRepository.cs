@@ -1,5 +1,14 @@
-﻿namespace BlazingGEL.WASM.Services;
+﻿using BlazingGEL.WASM.Dtos;
+using BlazingGEL.WASM.ServiceInterfaces;
 
-public class CategoryRepository
+namespace BlazingGEL.WASM.Services;
+
+public class CategoryRepository : BaseRepository<CategoryDto>, ICategoryRepository
 {
+    private readonly HttpClient _httpClient;
+
+    public CategoryRepository(HttpClient httpClient) : base(httpClient)
+    {
+        _httpClient = httpClient;
+    }
 }

@@ -1,50 +1,53 @@
 ﻿@page "/posts/create"
 
-@inject IPostRepository PostRepository
+@inject IPostRepository PostRepo
 @inject NavigationManager NavManager
 
-<EditForm Model="postDto" OnValidSubmit="OnSave" class="form-inline">
+<h3>Create</h3>
+
+<EditForm Model="post" OnValidSubmit="OnSave" class="form-inline">
     <DataAnnotationsValidator />
     <ValidationSummary />
     <div class="form-group">
         <label for="title">Title</label>
-        <InputText type="text" @bind-Value="postDto.Title" class="form-control" id="title" />
+        <InputText type="text" @bind-Value="post.Title" class="form-control" id="title" />
     </div>
     <div class="form-group">
         <label for="desc">Description</label>
-        <InputTextArea type="text" @bind-Value="postDto.Description" class="form-control" id="desc" />
+        <InputTextArea type="text" @bind-Value="post.Description" class="form-control" id="desc" />
     </div>
     <div class="form-group">
         <label for="category">Category</label>
-        <InputNumber type="number" @bind-Value="postDto.CategoryId" class="form-control" id="category" />
+        <InputNumber type="number" @bind-Value="post.CategoryId" class="form-control" id="category" />
     </div>
     <div class="form-group">
         <label for="sub-category">Sub Category</label>
-        <InputNumber type="number" @bind-Value="postDto.SubCategoryId" class="form-control" id="sub-category" />
+        <InputNumber type="number" @bind-Value="post.SubCategoryId" class="form-control" id="sub-category" />
     </div>
     <br/>
     <div class="form-group">
         <SfUploader AutoUpload="false">
             <UploaderEvents ValueChange="OnChange" OnRemove="OnRemove" OnClear="OnClear"/>
         </SfUploader>
-        <img src="@postDto.Thumbnail" />
+        <img src="@post.Thumbnail" />
         <br/>
     </div>
     <div class="control-section">
         <div class="control-wrapper">
             <div class="">
-                <SfRichTextEditor ShowCharCount="true" MaxLength="2000" AutoSaveOnIdle="true" @bind-Value="postDto.Content">
+                <SfRichTextEditor ShowCharCount="true" MaxLength="2000" AutoSaveOnIdle="true" @bind-Value="post.Content">
                     <RichTextEditorToolbarSettings Items="@Tools" />
                 </SfRichTextEditor>
             </div>
         </div>
     </div>
     <div class="form-group">
-        <InputCheckbox id="publish" @bind-Value="postDto.IsPublished" class="form-check-input" />
+        <InputCheckbox id="publish" @bind-Value="post.IsPublished" class="form-check-input" />
         <label for="publish">Publish</label>
     </div>
     <br/>
     <button type="submit" class="btn btn-info">Save</button>
+    <br/>
     <br/>
     <button class="btn btn-secondary" @onclick="OnReturn">Back</button>
 </EditForm>
@@ -87,7 +90,7 @@
     };
 
     private string content { get; set; }
-    private PostDto postDto = new();
+    private PostDto post = new();
 
     private void OnRemove(RemovingEventArgs args)
     {
@@ -98,7 +101,7 @@
                 File.Delete(Path.Combine(@"rootPath", removeFile.Name));
             }
         }
-        postDto.Thumbnail = string.Empty;
+        post.Thumbnail = string.Empty;
         StateHasChanged();
     }
 
@@ -111,7 +114,7 @@
                 File.Delete(Path.Combine(@"rootPath", removeFile.Name));
             }
         }
-        postDto.Thumbnail = string.Empty;
+        post.Thumbnail = string.Empty;
         StateHasChanged();
     }
 
@@ -127,27 +130,27 @@
 
             byte[] bytes = file.Stream.ToArray();
             string base64 = Convert.ToBase64String(bytes);
-            postDto.Thumbnail = @"data:image/" + file.FileInfo.Type + ";base64," + base64;
+            post.Thumbnail = @"data:image/" + file.FileInfo.Type + ";base64," + base64;
             StateHasChanged();
         }
     }
 
     private async Task OnSave()
     {
-        postDto.Slug = Extension.GenerateSlug(postDto.Title);
+        post.Slug = Extension.GenerateSlug(post.Title);
 
-        postDto.CreatedAt = DateTime.Now;
+        post.CreatedAt = DateTime.Now;
 
-        if (postDto.IsPublished)
-            postDto.PublishedAt = DateTime.Now;
+        if (post.IsPublished)
+            post.PublishedAt = DateTime.Now;
 
-        postDto.Views = 0;
-        postDto.Comments = 0;
+        post.Views = 0;
+        post.Comments = 0;
 
-        var response = await PostRepository.CreateAsync(EndPoint.PostEnpoint, postDto);
+        var response = await PostRepo.CreateAsync(EndPoint.PostEnpoint, post);
 
         if (response)
-            NavManager.NavigateTo("/posts");
+            OnReturn();
     }
 
     private void OnReturn()

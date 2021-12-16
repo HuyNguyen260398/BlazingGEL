@@ -1,0 +1,56 @@
+﻿@page "/categories/edit/{categoryId}"
+
+@inject ICategoryRepository CategoryRepo
+@inject NavigationManager NavManager
+
+<h3>Edit</h3>
+
+@if (int.Parse(categoryId) < 1 || string.IsNullOrWhiteSpace(categoryId))
+{
+    <h3>Category Id Error</h3>
+} 
+else if (category == null)
+{
+    <h3>Loading</h3>
+}
+else
+{
+    <EditForm Model="category" OnValidSubmit="OnSave" class="form-inline">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="form-group">
+            <label for="name">Name</label>
+            <InputText type="text" @bind-Value="category.Name" class="form-control" id="name" />
+        </div>
+        <br/>
+        <button type="submit" class="btn btn-info">Save</button>
+        <br/>
+        <br/>
+        <button class="btn btn-secondary" @onclick="OnReturn">Back</button>
+    </EditForm>
+}
+
+@code {
+    [Parameter]
+    public string categoryId { get; set; }
+    private CategoryDto category = new();
+
+    protected async override Task OnInitializedAsync()
+    {
+        category = await CategoryRepo.GetByIdAsync(EndPoint.CategoryEnpoint, int.Parse(categoryId));
+    }
+
+    private async Task OnSave()
+    {
+        category.Slug = Extension.GenerateSlug(category.Name);
+        var response = await CategoryRepo.UpdateAsync(EndPoint.CategoryEnpoint, category);
+
+        if (response)
+            OnReturn();
+    }
+
+    private void OnReturn()
+    {
+        NavManager.NavigateTo("/categories");
+    }
+}

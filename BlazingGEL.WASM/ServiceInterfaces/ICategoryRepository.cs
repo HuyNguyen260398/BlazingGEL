@@ -1,5 +1,7 @@
-﻿namespace BlazingGEL.WASM.ServiceInterfaces;
+﻿using BlazingGEL.WASM.Dtos;
 
-public interface ICategoryRepository
+namespace BlazingGEL.WASM.ServiceInterfaces;
+
+public interface ICategoryRepository : IBaseRepository<CategoryDto>
 {
 }

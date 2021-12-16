@@ -30,7 +30,7 @@
         {
             var isSuccess = await PostRepo.DeleteAsync(EndPoint.PostEnpoint, Convert.ToInt32(postId));
             if (isSuccess)
-                NavManager.NavigateTo("/posts");
+                OnReturn();
         }
     }
 

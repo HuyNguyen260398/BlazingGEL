@@ -1,45 +1,43 @@
 ﻿@page "/categories"
 
-@inject IPostRepository PostRepo
+@inject ICategoryRepository CategoryRepo
 @inject NavigationManager NavManager
 
-<h3>Posts</h3>
+<h3>Categories</h3>
 
-<button class="btn btn-primary" @onclick="CreatePost">Create</button>
+<button class="btn btn-primary" @onclick="CreateCategory">Create</button>
 
-@if (posts == null || posts.Count() == 0)
+@if (categories == null || categories.Count() == 0)
 {
-    <span>Loading posts...</span>
+    <span>Loading categories...</span>
 }
 else
 {
     <table class="table">
         <thead>
             <tr>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Category</th>
-                <th>Created At</th>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Slug</th>
                 <th></th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var post in posts)
+            @foreach (var category in categories)
             {
                 <tr>
-                    <td>@post.Title</td>
-                    <td>@post.Description</td>
-                    <td>@post.CategoryId</td>
-                    <td>@post.CreatedAt</td>
+                    <td>@category.CategoryId</td>
+                    <td>@category.Name</td>
+                    <td>@category.Slug</td>
                     <td>
-                        <button class="btn btn-info" @onclick="(() => ViewPost(post.PostId))">Details</button>
+                        <button class="btn btn-info" @onclick="(() => ViewCategory(category.CategoryId))">Details</button>
                     </td>
                     <td>
-                        <button class="btn btn-warning" @onclick="(() => EditPost(post.PostId))">Edit</button>
+                        <button class="btn btn-warning" @onclick="(() => EditCategory(category.CategoryId))">Edit</button>
                     </td>
                     <td>
-                        <button class="btn btn-danger" @onclick="(() => DeletePost(post.PostId))">Delete</button>
+                        <button class="btn btn-danger" @onclick="(() => DeleteCategory(category.CategoryId))">Delete</button>
                     </td>
                 </tr>
             }
@@ -48,30 +46,30 @@ else
 }
 
 @code {
-    private IEnumerable<PostDto>? posts;
+    private IEnumerable<CategoryDto>? categories;
 
     protected override async Task OnInitializedAsync()
     {
-        posts = await PostRepo.GetAllAsync(EndPoint.PostEnpoint);
+        categories = await CategoryRepo.GetAllAsync(EndPoint.CategoryEnpoint);
     }
 
-    private void CreatePost()
+    private void CreateCategory()
     {
-        NavManager.NavigateTo($"posts/create");
+        NavManager.NavigateTo($"categories/create");
     }
 
-    private void ViewPost(int id)
+    private void ViewCategory(int id)
     {
-        NavManager.NavigateTo($"posts/detail/{id}");
+        NavManager.NavigateTo($"categories/detail/{id}");
     }
 
-    private void EditPost(int id)
+    private void EditCategory(int id)
     {
-        NavManager.NavigateTo($"posts/edit/{id}");
+        NavManager.NavigateTo($"categories/edit/{id}");
     }
 
-    private void DeletePost(int id)
+    private void DeleteCategory(int id)
     {
-        NavManager.NavigateTo($"posts/delete/{id}");
+        NavManager.NavigateTo($"categories/delete/{id}");
     }
 }

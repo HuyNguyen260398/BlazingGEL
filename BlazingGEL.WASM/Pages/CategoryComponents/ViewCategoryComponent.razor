@@ -1,0 +1,29 @@
+﻿@page "/categories/detail/{categoryId}"
+
+@inject ICategoryRepository CategoryRepo
+@inject NavigationManager NavManager
+
+<h3>Detail</h3>
+
+<h1>@category.Name</h1>
+
+<h5>@category.Slug</h5>
+
+<button class="btn btn-secondary" @onclick="OnReturn">Back</button>
+
+@code {
+    [Parameter]
+    public string categoryId { get; set; }
+
+    private CategoryDto category = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        category = await CategoryRepo.GetByIdAsync(EndPoint.CategoryEnpoint, Convert.ToInt32(categoryId));
+    }
+
+    private void OnReturn()
+    {
+        NavManager.NavigateTo("/categories");
+    }
+}
