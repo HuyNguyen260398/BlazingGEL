@@ -1,17 +1,22 @@
 ﻿@page "/posts/edit/{postId}"
 
 @inject IPostRepository PostRepo
+@inject ICategoryRepository CategoryRepo
 @inject NavigationManager NavManager
 
 <h3>Edit</h3>
 
 @if (int.Parse(postId) < 1 || string.IsNullOrWhiteSpace(postId))
 {
-    <h3>Post Id Error</h3>
-} 
+    <h5>Post Id Error</h5>
+}
 else if (post == null)
 {
-    <h3>Loading</h3>
+    <h5>Loading</h5>
+}
+else if (categories == null || categories.Count() == 0)
+{
+    <h5>Error loading categories</h5>
 }
 else
 {
@@ -28,7 +33,13 @@ else
         </div>
         <div class="form-group">
             <label for="category">Category</label>
-            <InputNumber type="number" @bind-Value="post.CategoryId" class="form-control" id="category" />
+            <select class="form-select" @bind="post.CategoryId">
+                <option value="0" selected></option>
+                @foreach (var cat in categories)
+                {
+                    <option value="@cat.CategoryId">@cat.Name</option>
+                }
+            </select>
         </div>
         <div class="form-group">
             <label for="sub-category">Sub Category</label>
@@ -103,10 +114,12 @@ else
     public string postId { get; set; }
     private string content { get; set; }
     private PostDto post = new();
+    private IEnumerable<CategoryDto> categories;
 
     protected async override Task OnInitializedAsync()
     {
         post = await PostRepo.GetByIdAsync(EndPoint.PostEnpoint, int.Parse(postId));
+        categories = await CategoryRepo.GetAllAsync(EndPoint.CategoryEnpoint);
     }
 
     private void OnRemove(RemovingEventArgs args)

@@ -1,57 +1,70 @@
 ﻿@page "/posts/create"
 
 @inject IPostRepository PostRepo
+@inject ICategoryRepository CategoryRepo
 @inject NavigationManager NavManager
 
 <h3>Create</h3>
 
-<EditForm Model="post" OnValidSubmit="OnSave" class="form-inline">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
-    <div class="form-group">
-        <label for="title">Title</label>
-        <InputText type="text" @bind-Value="post.Title" class="form-control" id="title" />
-    </div>
-    <div class="form-group">
-        <label for="desc">Description</label>
-        <InputTextArea type="text" @bind-Value="post.Description" class="form-control" id="desc" />
-    </div>
-    <div class="form-group">
-        <label for="category">Category</label>
-        <InputNumber type="number" @bind-Value="post.CategoryId" class="form-control" id="category" />
-    </div>
-    <div class="form-group">
-        <label for="sub-category">Sub Category</label>
-        <InputNumber type="number" @bind-Value="post.SubCategoryId" class="form-control" id="sub-category" />
-    </div>
-    <br/>
-    <div class="form-group">
-        <SfUploader AutoUpload="false">
-            <UploaderEvents ValueChange="OnChange" OnRemove="OnRemove" OnClear="OnClear"/>
-        </SfUploader>
-        <img src="@post.Thumbnail" />
+@if (categories == null || categories.Count() == 0)
+{
+    <h5>Error loading categories</h5>
+}
+else
+{
+    <EditForm Model="post" OnValidSubmit="OnSave" class="form-inline">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="form-group">
+            <label for="title">Title</label>
+            <InputText type="text" @bind-Value="post.Title" class="form-control" id="title" />
+        </div>
+        <div class="form-group">
+            <label for="desc">Description</label>
+            <InputTextArea type="text" @bind-Value="post.Description" class="form-control" id="desc" />
+        </div>
+        <div class="form-group">
+            <label for="category">Category</label>
+            <select class="form-select" @bind="post.CategoryId">
+                <option value="0" selected></option>
+                @foreach (var cat in categories)
+                {
+                    <option value="@cat.CategoryId">@cat.Name</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="sub-category">Sub Category</label>
+            <InputNumber type="number" @bind-Value="post.SubCategoryId" class="form-control" id="sub-category" />
+        </div>
         <br/>
-    </div>
-    <div class="control-section">
-        <div class="control-wrapper">
-            <div class="">
-                <SfRichTextEditor ShowCharCount="true" MaxLength="2000" AutoSaveOnIdle="true" @bind-Value="post.Content">
-                    <RichTextEditorToolbarSettings Items="@Tools" />
-                </SfRichTextEditor>
+        <div class="form-group">
+            <SfUploader AutoUpload="false">
+                <UploaderEvents ValueChange="OnChange" OnRemove="OnRemove" OnClear="OnClear"/>
+            </SfUploader>
+            <img src="@post.Thumbnail" />
+            <br/>
+        </div>
+        <div class="control-section">
+            <div class="control-wrapper">
+                <div class="">
+                    <SfRichTextEditor ShowCharCount="true" MaxLength="2000" AutoSaveOnIdle="true" @bind-Value="post.Content">
+                        <RichTextEditorToolbarSettings Items="@Tools" />
+                    </SfRichTextEditor>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="form-group">
-        <InputCheckbox id="publish" @bind-Value="post.IsPublished" class="form-check-input" />
-        <label for="publish">Publish</label>
-    </div>
-    <br/>
-    <button type="submit" class="btn btn-info">Save</button>
-    <br/>
-    <br/>
-    <button class="btn btn-secondary" @onclick="OnReturn">Back</button>
-</EditForm>
-
+        <div class="form-group">
+            <InputCheckbox id="publish" @bind-Value="post.IsPublished" class="form-check-input" />
+            <label for="publish">Publish</label>
+        </div>
+        <br/>
+        <button type="submit" class="btn btn-info">Save</button>
+        <br/>
+        <br/>
+        <button class="btn btn-secondary" @onclick="OnReturn">Back</button>
+    </EditForm>
+}
 
 @code {
     private List<ToolbarItemModel> Tools = new List<ToolbarItemModel>()
@@ -91,6 +104,12 @@
 
     private string content { get; set; }
     private PostDto post = new();
+    private IEnumerable<CategoryDto> categories;
+
+    protected override async Task OnInitializedAsync()
+    {
+        categories = await CategoryRepo.GetAllAsync(EndPoint.CategoryEnpoint);
+    }
 
     private void OnRemove(RemovingEventArgs args)
     {
