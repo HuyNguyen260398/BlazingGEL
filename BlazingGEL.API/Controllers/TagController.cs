@@ -19,7 +19,7 @@ public class TagController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetTags()
+    public async Task<IActionResult> GetAll()
     {
         try
         {
@@ -34,7 +34,7 @@ public class TagController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetTagById(int id)
+    public async Task<IActionResult> GetById(int id)
     {
         try
         {
@@ -53,7 +53,7 @@ public class TagController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateTag([FromBody] TagDto tagDto)
+    public async Task<IActionResult> Create([FromBody] TagDto tagDto)
     {
         try
         {
@@ -78,7 +78,7 @@ public class TagController : ControllerBase
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateTag([FromBody] TagDto tagDto)
+    public async Task<IActionResult> Update([FromBody] TagDto tagDto)
     {
         try
         {
@@ -103,7 +103,7 @@ public class TagController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteTag(int id)
+    public async Task<IActionResult> Delete(int id)
     {
         try
         {

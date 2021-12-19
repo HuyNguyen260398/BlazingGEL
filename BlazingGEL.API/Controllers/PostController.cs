@@ -21,7 +21,7 @@ public class PostController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetPosts()
+    public async Task<IActionResult> GetAll()
     {
         try
         {
@@ -36,7 +36,7 @@ public class PostController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetPostById(int id)
+    public async Task<IActionResult> GetById(int id)
     {
         try
         {
@@ -55,7 +55,7 @@ public class PostController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreatePost([FromBody] PostDto postDto)
+    public async Task<IActionResult> Create([FromBody] PostDto postDto)
     {
         try
         {
@@ -80,7 +80,7 @@ public class PostController : ControllerBase
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdatePost([FromBody] PostDto postDto)
+    public async Task<IActionResult> Update([FromBody] PostDto postDto)
     {
         try
         {
@@ -105,7 +105,7 @@ public class PostController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeletePost(int id)
+    public async Task<IActionResult> Delete(int id)
     {
         try
         {

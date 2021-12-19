@@ -19,7 +19,7 @@ public class CategoryController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetCategories()
+    public async Task<IActionResult> GetAll()
     {
         try
         {
@@ -34,7 +34,7 @@ public class CategoryController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetCategoryById(int id)
+    public async Task<IActionResult> GetById(int id)
     {
         try
         {
@@ -53,7 +53,7 @@ public class CategoryController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateCategory([FromBody] CategoryDto categoryDto)
+    public async Task<IActionResult> Create([FromBody] CategoryDto categoryDto)
     {
         try
         {
@@ -78,7 +78,7 @@ public class CategoryController : ControllerBase
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateCategory([FromBody] CategoryDto categoryDto)
+    public async Task<IActionResult> Update([FromBody] CategoryDto categoryDto)
     {
         try
         {
@@ -103,7 +103,7 @@ public class CategoryController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteCategory(int id)
+    public async Task<IActionResult> Delete(int id)
     {
         try
         {
