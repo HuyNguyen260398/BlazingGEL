@@ -2,7 +2,6 @@
 using BlazingGEL.API.Dtos;
 using BlazingGEL.CoreBusiness.Models;
 using BlazingGEL.Services.DataStoreInterfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlazingGEL.API.Controllers;
@@ -20,13 +19,13 @@ public class TagController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetCategories()
+    public async Task<IActionResult> GetTags()
     {
         try
         {
-            var categories = await _tagRepo.GetAllAsync();
-            var categoriesDto = _mapper.Map<IEnumerable<TagDto>>(categories);
-            return Ok(categoriesDto);
+            var tags = await _tagRepo.GetAllAsync();
+            var tagsDto = _mapper.Map<IEnumerable<TagDto>>(tags);
+            return Ok(tagsDto);
         }
         catch (Exception e)
         {

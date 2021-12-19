@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BlazingGEL.API.Dtos;
+namespace BlazingGEL.WASM.Dtos;
 
 public class TagDto
 {

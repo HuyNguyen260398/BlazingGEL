@@ -1,0 +1,41 @@
+﻿@page "/tags/delete/{tagId}"
+
+@inject ITagRepository TagRepo
+@inject NavigationManager NavManager
+@inject IJSRuntime JsRuntime
+
+<h3>Delete</h3>
+
+<h1>@tags.Name</h1>
+
+<button class="btn btn-danger" @onclick="(() => OnDelete(tagId))">Delete</button>
+
+<button class="btn btn-secondary" @onclick="OnReturn">Back</button>
+
+@code {
+    [Parameter]
+    public string tagId { get; set; }
+
+    private TagDto tags = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        tags = await TagRepo.GetByIdAsync(EndPoint.TagEnpoint, Convert.ToInt32(tagId));
+    }
+
+    private async Task OnDelete(string id)
+    {
+        bool confirmed = await JsRuntime.InvokeAsync<bool>("confirm", "Are you sure?");
+        if (confirmed)
+        {
+            var isSuccess = await TagRepo.DeleteAsync(EndPoint.TagEnpoint, Convert.ToInt32(tagId));
+            if (isSuccess)
+                OnReturn();
+        }
+    }
+
+    private void OnReturn()
+    {
+        NavManager.NavigateTo("/tags");
+    }
+}

@@ -1,0 +1,29 @@
+﻿@page "/tags/detail/{tagId}"
+
+@inject ITagRepository TagRepo
+@inject NavigationManager NavManager
+
+<h3>Detail</h3>
+
+<h1>@tag.Name</h1>
+
+<h5>@tag.Slug</h5>
+
+<button class="btn btn-secondary" @onclick="OnReturn">Back</button>
+
+@code {
+    [Parameter]
+    public string tagId { get; set; }
+
+    private TagDto tag = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        tag = await TagRepo.GetByIdAsync(EndPoint.TagEnpoint, Convert.ToInt32(tagId));
+    }
+
+    private void OnReturn()
+    {
+        NavManager.NavigateTo("/tags");
+    }
+}

@@ -9,4 +9,5 @@ public static class EndPoint
 #endif
     public static string PostEnpoint = $"{BaseUrl}/api/post/";
     public static string CategoryEnpoint = $"{BaseUrl}/api/category/";
+    public static string TagEnpoint = $"{BaseUrl}/api/tag/";
 }

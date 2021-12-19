@@ -1,0 +1,75 @@
+﻿@page "/tags"
+
+@inject ITagRepository TagRepo
+@inject NavigationManager NavManager
+
+<h3>Categories</h3>
+
+<button class="btn btn-primary" @onclick="CreateTag">Create</button>
+
+@if (tags == null || tags.Count() == 0)
+{
+    <span>Loading tags...</span>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Slug</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tag in tags)
+            {
+                <tr>
+                    <td>@tag.TagId</td>
+                    <td>@tag.Name</td>
+                    <td>@tag.Slug</td>
+                    <td>
+                        <button class="btn btn-info" @onclick="(() => ViewTag(tag.TagId))">Details</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-warning" @onclick="(() => EditTag(tag.TagId))">Edit</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" @onclick="(() => DeleteTag(tag.TagId))">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IEnumerable<TagDto>? tags;
+
+    protected override async Task OnInitializedAsync()
+    {
+        tags = await TagRepo.GetAllAsync(EndPoint.TagEnpoint);
+    }
+
+    private void CreateTag()
+    {
+        NavManager.NavigateTo($"tags/create");
+    }
+
+    private void ViewTag(int id)
+    {
+        NavManager.NavigateTo($"tags/detail/{id}");
+    }
+
+    private void EditTag(int id)
+    {
+        NavManager.NavigateTo($"tags/edit/{id}");
+    }
+
+    private void DeleteTag(int id)
+    {
+        NavManager.NavigateTo($"tags/delete/{id}");
+    }
+}

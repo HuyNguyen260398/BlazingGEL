@@ -1,0 +1,40 @@
+﻿@page "/tags/create"
+
+@inject ITagRepository TagRepo
+@inject NavigationManager NavManager
+
+<h3>Create</h3>
+
+<EditForm Model="tag" OnValidSubmit="OnSave" class="form-inline">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-group">
+        <label for="name">Name</label>
+        <InputText type="text" @bind-Value="tag.Name" class="form-control" id="name" />
+    </div>
+    <br/>
+    <button type="submit" class="btn btn-info">Save</button>
+    <br/>
+    <br/>
+    <button class="btn btn-secondary" @onclick="OnReturn">Back</button>
+</EditForm>
+
+
+@code {
+    private TagDto tag = new();
+
+    private async Task OnSave()
+    {
+        tag.Slug = Extension.GenerateSlug(tag.Name);
+
+        var response = await TagRepo.CreateAsync(EndPoint.TagEnpoint, tag);
+
+        if (response)
+            OnReturn();
+    }
+
+    private void OnReturn()
+    {
+        NavManager.NavigateTo("/tags");
+    }
+}
