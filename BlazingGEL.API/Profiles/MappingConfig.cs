@@ -14,6 +14,7 @@ public class MappingConfig
             config.CreateMap<PostDto, Post>().ReverseMap();
             config.CreateMap<CategoryDto, Category>().ReverseMap();
             config.CreateMap<TagDto, Tag>().ReverseMap();
+            config.CreateMap<CommentDto, Comment>().ReverseMap();
         });
 
         return mappingCongif;
