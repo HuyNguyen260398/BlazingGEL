@@ -23,7 +23,7 @@ public class CommentController : ControllerBase
     {
         try
         {
-            var comments = await _commentRepo.GetCommentsByPostAsync(postId);
+            var comments = await _commentRepo.GetByPostAsync(postId);
 
             if (comments == null || comments.Count() == 0)
                 return NotFound();

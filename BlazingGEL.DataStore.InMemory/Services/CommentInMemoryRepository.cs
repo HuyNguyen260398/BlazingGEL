@@ -9,7 +9,10 @@ public class CommentInMemoryRepository : ICommentRepository
     {
         new Comment { CommentId = 1, PostId = 1, Name = "Guest 1", Email = "guest1@gmail.com", Content = "Comment 1", CreatedAt = DateTime.Now },
         new Comment { CommentId = 2, PostId = 2, Name = "Guest 2", Email = "guest2@gmail.com", Content = "Comment 2", CreatedAt = DateTime.Now },
-        new Comment { CommentId = 3, PostId = 3, Name = "Guest 3", Email = "guest3@gmail.com", Content = "Comment 3", CreatedAt = DateTime.Now }
+        new Comment { CommentId = 3, PostId = 3, Name = "Guest 3", Email = "guest3@gmail.com", Content = "Comment 3", CreatedAt = DateTime.Now },
+        new Comment { CommentId = 4, PostId = 1, Name = "Guest 1", Email = "guest1@gmail.com", Content = "Comment 4", CreatedAt = DateTime.Now },
+        new Comment { CommentId = 5, PostId = 2, Name = "Guest 2", Email = "guest2@gmail.com", Content = "Comment 5", CreatedAt = DateTime.Now },
+        new Comment { CommentId = 6, PostId = 3, Name = "Guest 3", Email = "guest3@gmail.com", Content = "Comment 6", CreatedAt = DateTime.Now }
     };
 
     public Task<IEnumerable<Comment>> GetAllAsync()
@@ -22,7 +25,7 @@ public class CommentInMemoryRepository : ICommentRepository
         throw new NotImplementedException();
     }
 
-    public async Task<IEnumerable<Comment>> GetCommentsByPostAsync(int postId)
+    public async Task<IEnumerable<Comment>> GetByPostAsync(int postId)
     {
         return await Task.FromResult(_comments.Where(c => c.PostId == postId));
     }

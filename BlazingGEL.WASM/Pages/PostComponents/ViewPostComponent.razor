@@ -23,6 +23,10 @@
     @((MarkupString)post.Content)
 </p>
 
+<CommentComponent PostId="post.PostId" />
+
+<br/>
+<br/>
 <button class="btn btn-secondary" @onclick="OnReturn">Back</button>
 
 @code {

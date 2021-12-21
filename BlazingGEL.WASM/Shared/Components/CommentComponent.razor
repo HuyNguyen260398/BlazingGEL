@@ -1,0 +1,77 @@
+﻿@inject NavigationManager NavManager
+@inject ICommentRepository CommentRepo
+
+<h3>Comment Component</h3>
+
+<EditForm Model="comment" OnValidSubmit="OnSave" class="form-inline">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-group">
+        <label for="name">Name</label>
+        <InputText type="text" @bind-Value="comment.Name" class="form-control" id="name" />
+    </div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <InputText type="email" @bind-Value="comment.Email" class="form-control" id="email" />
+    </div>
+    <div class="form-group">
+        <label for="content">Content</label>
+        <InputTextArea type="text" @bind-Value="comment.Content" class="form-control" id="content" />
+    </div>
+    <br/>
+    <button type="submit" class="btn btn-info">Save</button>
+</EditForm>
+
+<br/>
+@if (comments == null || comments.Count() == 0)
+{
+    <span>No comments available</span>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Content</th>
+                <th>Comment at</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cmt in comments)
+            {
+                <tr>
+                    <td>@cmt.Name</td>
+                    <td>@cmt.Email</td>
+                    <td>@cmt.Content</td>
+                    <td>@cmt.CreatedAt</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    [Parameter]
+    public int PostId { get; set; }
+    private CommentDto comment = new();
+    private IEnumerable<CommentDto> comments;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        comments = await CommentRepo.GetByPostAsync(EndPoint.CommentEnpoint, PostId);
+    }
+
+    private async Task OnSave()
+    {
+        comment.PostId = PostId;
+        var response = await CommentRepo.CreateAsync(EndPoint.CommentEnpoint, comment);
+
+        if (response)
+        {
+            comments = await CommentRepo.GetByPostAsync(EndPoint.CommentEnpoint, PostId);
+            StateHasChanged();
+        }
+    }
+}
