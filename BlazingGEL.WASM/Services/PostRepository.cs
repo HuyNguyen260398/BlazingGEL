@@ -1,4 +1,4 @@
-﻿using BlazingGEL.WASM.Dtos;
+﻿using BlazingGEL.CoreBusiness.Dtos;
 using BlazingGEL.WASM.ServiceInterfaces;
 
 namespace BlazingGEL.WASM.Services;

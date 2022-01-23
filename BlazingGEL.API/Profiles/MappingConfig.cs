@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BlazingGEL.API.Dtos;
+using BlazingGEL.CoreBusiness.Dtos;
 using BlazingGEL.CoreBusiness.Models;
 
 namespace BlazingGEL.API.Profiles;

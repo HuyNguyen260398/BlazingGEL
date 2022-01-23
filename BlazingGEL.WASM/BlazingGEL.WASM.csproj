@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\img\**" />
+    <Content Remove="wwwroot\img\**" />
+    <EmbeddedResource Remove="wwwroot\img\**" />
+    <None Remove="wwwroot\img\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.0" PrivateAssets="all" />
     <PackageReference Include="Syncfusion.Blazor" Version="19.3.0.57" />
@@ -19,7 +26,43 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\img\" />
+    <None Include="wwwroot\template\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\template\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\template\fonts\glyphicons-halflings-regular.svg" />
+    <None Include="wwwroot\template\fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="wwwroot\template\js\bootstrap.min.js" />
+    <None Include="wwwroot\template\js\imagesloaded.pkgd.min.js" />
+    <None Include="wwwroot\template\js\isotope.pkgd.min.js" />
+    <None Include="wwwroot\template\js\jquery-2.2.4.min.js" />
+    <None Include="wwwroot\template\js\jquery.actual.min.js" />
+    <None Include="wwwroot\template\js\jquery.appear.js" />
+    <None Include="wwwroot\template\js\jquery.countdown.min.js" />
+    <None Include="wwwroot\template\js\jquery.counterup.min.js" />
+    <None Include="wwwroot\template\js\jquery.datetimepicker.full.min.js" />
+    <None Include="wwwroot\template\js\jquery.gridrotator.js" />
+    <None Include="wwwroot\template\js\jquery.knob.js" />
+    <None Include="wwwroot\template\js\jquery.magnific-popup.min.js" />
+    <None Include="wwwroot\template\js\jquery.meanmenu.min.js" />
+    <None Include="wwwroot\template\js\jquery.nav.js" />
+    <None Include="wwwroot\template\js\jquery.scrollUp.min.js" />
+    <None Include="wwwroot\template\js\main.js" />
+    <None Include="wwwroot\template\js\modernizr-2.8.3.min.js" />
+    <None Include="wwwroot\template\js\plugins.js" />
+    <None Include="wwwroot\template\js\select2.min.js" />
+    <None Include="wwwroot\template\js\validator.min.js" />
+    <None Include="wwwroot\template\js\waypoints.min.js" />
+    <None Include="wwwroot\template\js\wNumb.js" />
+    <None Include="wwwroot\template\js\wow.min.js" />
+    <None Include="wwwroot\template\vendor\noUiSlider\nouislider.min.js" />
+    <None Include="wwwroot\template\vendor\OwlCarousel\owl.carousel.min.js" />
+    <None Include="wwwroot\template\vendor\php\form-process.php" />
+    <None Include="wwwroot\template\vendor\php\question-form-process.php" />
+    <None Include="wwwroot\template\vendor\slider\home.js" />
+    <None Include="wwwroot\template\vendor\slider\js\jquery.nivo.slider.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BlazingGEL.CoreBusiness\BlazingGEL.CoreBusiness.csproj" />
   </ItemGroup>
 
 </Project>
